@@ -1,0 +1,47 @@
+version: '3'
+services: 
+    web:
+        image: nginx:latest
+        ports: 
+            - "82:80"
+        volumes: 
+            - ../web:/source
+            - ./site.conf:/etc/nginx/conf.d/default.conf
+        links: 
+            - php
+        restart: always
+        depends_on: 
+            - php
+            - db
+
+    php:
+        build: .
+        volumes: 
+            - ../web:/source
+        restart: always
+        depends_on: 
+            - db
+    
+    db:
+        image: mariadb:latest
+        restart: always
+        volumes: 
+            - ../db:/docker-entrypoint-initdb.d
+        environment: 
+            MARIADB_ROOT_PASSWORD: root
+            MARIADB_DATABASE: boyteDB
+            MARIADB_USER: admin
+            MARIADB_PASSWORD: password
+            TZ: Asia/Ho_Chi_Minh
+    
+    phpmyadmin:
+        image: phpmyadmin
+        restart: always
+        ports:
+            - 8080:80
+        environment:
+            PMA_HOST: db
+            MYSQL_ROOT_PASSWORD: root
+
+        depends_on: 
+            - db
