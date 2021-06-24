@@ -1,6 +1,6 @@
 <?php
 
-$servernameDB = "localhost";
+$servernameDB = "db";
 $usernameDB = "admin";
 $passwordDB = "password";
 $nameDB = "boyteDB";

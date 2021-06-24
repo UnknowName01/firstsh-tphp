@@ -77,7 +77,8 @@
               </div>';
           }
           else{
-            header('location:Dashboard.php');
+          //  header('location:Dashboard.php');
+          echo("<script>location.href = '/Admin/Dashboard.php';</script>");
           }
         }
       ?>

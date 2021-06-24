@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -35,7 +38,6 @@
     <?php
 	if (isset($_POST['login']))
 		{
-            session_start();
             include './php/config.php';
 		//	$username = mysqli_real_escape_string($con, $_POST['username']);
 		//	$password = mysqli_real_escape_string($con, $_POST['password']);
@@ -51,7 +53,9 @@
             if (mysqli_num_rows($re) == 1) {
             //    echo 'OK';
                 $_SESSION['admin'] = 'admin';
-                header('location:Admin/Dashboard.php');
+            //    header("Location: Admin/Dashboard.php");
+            //    exit;
+                echo("<script>location.href = '/Admin/Dashboard.php';</script>");
             }
             else {
                 echo '<div class="alert alert-danger" style="width: 40%; left: 30%;" role="alert">
